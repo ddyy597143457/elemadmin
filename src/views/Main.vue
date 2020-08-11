@@ -10,10 +10,10 @@ export default {
 </script>
 <style lang="stylus" scoped>
     @import "~@/assets/styles/var.styl"
-    .main {
+    .main 
         float left
         width: $mainWidthPersent;
         min-height: $minHeight;
         background: black
-    }
+    
 </style>
