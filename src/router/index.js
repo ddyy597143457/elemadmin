@@ -5,6 +5,8 @@ Vue.use(Router)
 
 import Admin from '../views/Admin'
 import NotFound from '../views/NotFound'
+import Log from '../views/log/Index'
+import Video from '../views/video/Index'
 
 var router = new Router({
     routes: [
@@ -12,6 +14,16 @@ var router = new Router({
             path:'/admin',
             name:'admin',
             component:Admin, 
+            children:[
+                {
+                    path:'video/list',
+                    component:Video
+                },
+                {
+                    path:'log',
+                    component:Log
+                }
+            ]
         },
         {
         path:'/',
