@@ -1,49 +1,101 @@
 <template>
-    <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
+    <div>
+        <div class="tab-wrap">
 
-    </el-tabs>
+          <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab" @tab-click="setTab">
+            <el-tab-pane
+              v-for="item in editableTabs"
+              :key="item.name"
+              :label="item.title"
+              :name="item.name"
+            >
+            </el-tab-pane>
+          </el-tabs>
+        </div>
+        <div class="content-wrap">
+
+          <router-view></router-view>
+        </div>
+    </div>
 </template>
 <script>
+  import {mapState, mapMutations} from 'vuex'
+
   export default {
     data() {
       return {
-        editableTabsValue: '2',
-        editableTabs: [{
-          title: 'Tab 1',
-          name: '1',
-        }, {
-          title: 'Tab 2',
-          name: '2',
-        }],
-        tabIndex: 2
+        editableTabsValue: '',
+        editableTabs: [],
       }
     },
     methods: {
-      addTab() {
-        let newTabName = ++this.tabIndex + '';
-        this.editableTabs.push({
-          title: 'New Tab',
-          name: newTabName,
-          content: 'New Tab content'
-        });
-        this.editableTabsValue = newTabName;
-      },
       removeTab(targetName) {
-        let tabs = this.editableTabs;
-        let activeName = this.editableTabsValue;
-        if (activeName === targetName) {
-          tabs.forEach((tab, index) => {
-            if (tab.name === targetName) {
-              let nextTab = tabs[index + 1] || tabs[index - 1];
-              if (nextTab) {
-                activeName = nextTab.name;
+          let tabList = this.tabList;
+          let cur = false;
+          for (let i = 0; i < tabList.length; i++) {
+              const tab = tabList[i];
+              if(tab.name === targetName) {
+                  cur = i;
+                  break;
               }
+          }
+          tabList.splice(cur,1);
+          let activeTabName;
+          //如果关闭当前标签
+          if(cur === (this.index - 1)) {
+              if(cur < tabList.length) {
+                  //活动标签右移
+                  cur++;
+              } else {
+                  //活动标签左移
+                  cur--;
+              }
+              activeTabName = tabList[cur].name;
+          } else {
+              activeTabName = this.activeTabName;
+          }
+          this.changeTab({activeTabName,tabList});
+          if(tabList.length === 0) {
+              this.$router.push('/admin');
+          }
+      },
+      setTab() {
+          let r;
+          console.log('this.tabList',this.tabList);
+          for(let tab of this.tabList) {
+            if(tab.name === this.editableTabsValue) {
+              r = tab.router;
+              break;
             }
-          });
+          }
+          console.log('r',r);
+          if(r) {
+            this.$router.push(r);  
+          }
+      },
+      ...mapMutations(['changeTab'])
+    },
+    created() {
+      this.editableTabs = this.tabList;
+      
+    },
+    computed: {
+        ...mapState(['activeTabName','tabList'])
+    },
+    watch: {
+        activeTabName:function() {
+          this.editableTabsValue = this.activeTabName;
+        },
+
+        tabList:function() {
+           this.editableTabs = this.tabList;
         }
-        this.editableTabsValue = activeName;
-        this.editableTabs = tabs.filter(tab => tab.name !== targetName);
-      }
     }
   }
 </script>
+<style lang="stylus" scoped>
+    .tab-wrap
+      width 100%;
+    .content-wrap
+      padding-left 20px;;
+</style>

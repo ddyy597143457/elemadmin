@@ -1,25 +1,26 @@
 <template>
     <div class="admin">
-        <top-component></top-component>
+        <!-- 左侧菜单导航 -->
         <left-side></left-side>
+        <!-- 内容区 -->
         <div class="content">
-          <!--<tab-component></tab-component>-->
-          <div class="main">
-            <router-view></router-view>
-          </div>
+            <!-- 顶部 -->
+            <top-component></top-component>
+            <!-- tab页 -->
+            <tab-component></tab-component>
         </div>
     </div>
 </template>
 <script>
 import TopComponent from "./layout/Top"
-//import TabComponent from "./layout/Tab"
+import TabComponent from "./layout/Tab"
 import LeftSide from "./layout/LeftSide"
 
 export default {
   name: 'Admin',
   components: {
     TopComponent,
-    //TabComponent,
+    TabComponent,
     LeftSide,
 
   }
@@ -27,12 +28,10 @@ export default {
 </script>
 <style lang="stylus" scoped>
     @import "~@/assets/styles/var.styl"
-    .main 
-        float left
-        width: $mainWidthPersent;
-        min-height: $minHeight;
-        box-sizing: border-box;
-        background: black
-        color white;
+    .content 
+          float left
+          width: $mainWidthPersent;
+          min-height: $minHeight;
+          box-sizing: border-box;
 
 </style>
