@@ -8,6 +8,7 @@ import NotFound from '../views/NotFound'
 import Home from '../views/layout/Home'
 import Log from '../views/log/Index'
 import Video from '../views/video/Index'
+import Movie from '../views/video/Movie'
 
 var router = new Router({
     routes: [
@@ -23,6 +24,10 @@ var router = new Router({
                 {
                     path:'video/list',
                     component:Video
+                },
+                {
+                    path: 'movie/list',
+                    component: Movie
                 },
                 {
                     path:'log',

@@ -52,9 +52,6 @@ export default {
         }
         //添加tab
         let it = item1?item1:item;
-        if(it.name === this.activeTabName) {
-          return
-        }
         let tabList = this.tabList,found = false;
         for(let tab of tabList) {
           if(it.name === tab.name) {

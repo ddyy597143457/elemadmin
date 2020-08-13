@@ -64,6 +64,13 @@
                     "name":"视频列表",
                     "icon":"",
                     "router":"/video/list"
+                },
+                {
+                    "id":32,
+                    "index":"3-2",
+                    "name":"电影列表",
+                    "icon":"",
+                    "router":"/movie/list"
                 }
             ]
         },
