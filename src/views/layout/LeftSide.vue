@@ -6,7 +6,6 @@
         <div class="menu">
           <el-row class="tac">
             <el-menu
-             
               class="el-menu-vertical-demo"
               background-color="#545c64"
               text-color="#fff"
@@ -52,6 +51,13 @@ export default {
         }
         //添加tab
         let it = item1?item1:item;
+        if(!it.router) {
+            this.$message({
+              message: it.name+'未配置路由',
+              type: 'warning'
+            });
+            return;
+        }
         let tabList = this.tabList,found = false;
         for(let tab of tabList) {
           if(it.name === tab.name) {
@@ -101,9 +107,14 @@ export default {
       width: $leftsideWidthPersent;
       min-height: $minHeight;
       overflow hidden
-      .logo 
-
+      .logo
         padding-left 20px;
         height 50px
         line-height 50px
+    .el-submenu
+      .el-menu-item
+        margin-left 10px;
+        font-size 13px;
+
+
 </style>

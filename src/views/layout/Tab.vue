@@ -87,19 +87,14 @@
       },
       setTab() {
           let r;
-          if(this.editableTabsValue === 'home') {
-             this.$router.push('/admin');
-             return;
-          }
           for(let tab of this.tabList) {
             if(tab.name === this.editableTabsValue) {
               r = tab.router;
               break;
             }
           }
-          if(r) {
-            this.$router.push(r);  
-          }
+          this.changeTab({activeTabName:this.editableTabsValue})
+          this.$router.push(r); 
       },
       ...mapMutations(['changeTab'])
     },
@@ -118,7 +113,6 @@
           console.log('time to update state.activeTabName');
           this.editableTabsValue = this.activeTabName;
         },
-
         tabList:function() {
           console.log(123);
            this.editableTabs = this.tabList;

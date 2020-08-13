@@ -11,10 +11,12 @@ Vue.use(Router)
 import Admin from '../views/Admin'
 import NotFound from '../views/NotFound'
 import Home from '../views/layout/Home'
-import Log from '../views/log/Index'
-import Video from '../views/video/Index'
-import Movie from '../views/video/Movie'
 
+//惰性加载
+const Video = () => import('../views/video/Index')
+const Movie = () => import('../views/video/Movie')
+const Log = () => import('../views/log/Index')
+const UploadVideo = () => import('../views/video/UploadVideo.vue')
 
 var router = new Router({
     routes: [
@@ -34,6 +36,10 @@ var router = new Router({
                 {
                     path: 'movie/list',
                     component: Movie
+                },
+                {
+                    path: 'video/upload',
+                    component:UploadVideo
                 },
                 {
                     path:'log',
