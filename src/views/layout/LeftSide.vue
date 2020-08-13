@@ -100,7 +100,6 @@ export default {
       float left
       width: $leftsideWidthPersent;
       min-height: $minHeight;
-      background: purple
       overflow hidden
       .logo 
 

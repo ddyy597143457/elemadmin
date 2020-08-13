@@ -2,7 +2,12 @@
     <div>
         <div class="tab-wrap">
 
-          <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab" @tab-click="setTab">
+          <el-tabs v-model="editableTabsValue" 
+            type="border-card" 
+            closable 
+            @tab-remove="removeTab" 
+            @tab-click="setTab"
+            >
             <el-tab-pane
               v-for="item in editableTabs"
               :key="item.name"
@@ -13,8 +18,7 @@
           </el-tabs>
         </div>
         <div class="content-wrap">
-
-          <router-view></router-view>
+            <router-view></router-view>
         </div>
     </div>
 </template>
@@ -24,13 +28,17 @@
   export default {
     data() {
       return {
-        editableTabsValue: '',
+        editableTabsValue: 'home',
         editableTabs: [],
       }
     },
     methods: {
       removeTab(targetName) {
           let tabList = this.tabList;
+          console.log(this.editableTabsValue);
+          if(this.editableTabsValue === 'home') {
+             return;
+          }
           let cur = false,curName = '';
           for (let i = 0; i < tabList.length; i++) {
               const tab = tabList[i];
@@ -88,6 +96,9 @@
       this.editableTabs = this.tabList;
       
     },
+    mounted() {
+
+    },
     computed: {
         ...mapState(['activeTabName','tabList'])
     },
@@ -106,5 +117,10 @@
     .tab-wrap
       width 100%;
     .content-wrap
-      padding-left 20px;;
+      padding-left 20px;
+
+    .el-tabs,.el-tabs--border-card,.el-tabs__header
+      box-shadow: none;
+      border-bottom: none;
+
 </style>

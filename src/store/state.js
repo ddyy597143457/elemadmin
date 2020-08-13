@@ -3,8 +3,8 @@
 let navMenu = []
 
 //tab页
-let activeTabName = '';
-let tabList = [];
+let activeTabName = 'home';
+let tabList = [{title:'首页',name:'home'}];
 
 
 export default {

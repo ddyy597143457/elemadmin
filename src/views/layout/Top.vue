@@ -1,15 +1,10 @@
 <template>
     <div class="top">
-        <!--
+       
         <div class="nav">
-            <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/admin' }">首页</el-breadcrumb-item>
-
-            <el-breadcrumb-item v-if="this.navMenu[0]">{{this.navMenu[0]}}</el-breadcrumb-item>
-            <el-breadcrumb-item v-if="this.navMenu[1]">{{this.navMenu[1]}}</el-breadcrumb-item>
-            </el-breadcrumb>
+            
         </div>
-        -->
+        
         <div class="head-area">
             <div class="theme">主题</div>
             <div class="lang">语言</div>
