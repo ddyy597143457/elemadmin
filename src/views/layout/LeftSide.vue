@@ -61,7 +61,7 @@ export default {
         }
         let r = '/admin'+it.router;
         if(found) {
-          //切换标签
+           //切换标签
            this.changeTab({activeTabName:found});
         } else {
           //打开新标签
@@ -86,7 +86,7 @@ export default {
       ...mapMutations(['setNavMenu','changeTab'])
     },
     computed:{
-        ...mapState(['navMenu','activeTabName','tabList'])
+        ...mapState(['navMenu','tabList'])
     },
     created() {
       this.initMenu();

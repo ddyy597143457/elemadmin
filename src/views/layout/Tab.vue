@@ -34,10 +34,17 @@
     },
     methods: {
       removeTab(targetName) {
+          
           let tabList = this.tabList;
-          console.log(this.editableTabsValue);
+          //如果是首页，直接返回
           if(this.editableTabsValue === 'home') {
              return;
+          }
+          //如果只有一个，那就是首页，直接返回
+          if(tabList.length <= 1) {
+            this.editableTabsValue = 'home';
+            this.$router.push('/admin');
+            return;
           }
           let cur = false,curName = '';
           for (let i = 0; i < tabList.length; i++) {
@@ -51,15 +58,7 @@
           
           //如果关闭当前标签
           if(curName === this.editableTabsValue) {
-              //最后一个标签了
-              if(cur === 0) {
-                  tabList = [];
-                  activeTabName = '';
-                  this.changeTab({activeTabName,tabList});
-                  this.$router.push('/admin');
-                  return;
-              }
-              if(c < tabList.length-1) {
+             if(c < tabList.length-1) {
                   //活动标签右移
                   c++;
               } else {
@@ -72,6 +71,14 @@
               activeTabName = this.activeTabName;
           }
           tabList.splice(cur,1);
+          //移除后只剩一个tab，必然是首页
+          if(tabList.length <= 1) {
+            activeTabName = 'home';
+            r = '/admin';
+          }
+          //切换标签
+          this.editableTabsValue = activeTabName;
+          this.editableTabs = tabList;
           this.changeTab({activeTabName,tabList});
           if(r) {
              this.$router.push(r);
@@ -80,6 +87,10 @@
       },
       setTab() {
           let r;
+          if(this.editableTabsValue === 'home') {
+             this.$router.push('/admin');
+             return;
+          }
           for(let tab of this.tabList) {
             if(tab.name === this.editableTabsValue) {
               r = tab.router;
@@ -104,10 +115,12 @@
     },
     watch: {
         activeTabName:function() {
+          console.log('time to update state.activeTabName');
           this.editableTabsValue = this.activeTabName;
         },
 
         tabList:function() {
+          console.log(123);
            this.editableTabs = this.tabList;
         }
     }

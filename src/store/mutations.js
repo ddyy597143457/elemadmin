@@ -8,6 +8,7 @@ function changeTab(state,obj) {
     let {activeTabName,tabList} = obj;
     if(activeTabName) {
         state.activeTabName = obj.activeTabName;
+        console.log('here',state.activeTabName);
     }
     if(tabList) {
         state.tabList = obj.tabList; 
