@@ -113,8 +113,11 @@ export default {
         line-height 50px
     .el-submenu
       .el-menu-item
-        margin-left 10px;
+        background #ccc
+        min-width 150px;  //element设为200px，最低200px的话会导致和父菜单边框一样宽，但是父级有右边框，从而导致表现不一致
         font-size 13px;
+        span
+          margin-left 10px;
 
 
 </style>
