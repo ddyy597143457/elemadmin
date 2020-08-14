@@ -3,12 +3,13 @@
 <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
 
   <el-form-item label="视频名称" prop="name">
-    <el-input v-model="ruleForm.name" maxlength="35" show-word-limit style="width:50%;"></el-input>
+    <el-input v-model="ruleForm.name" maxlength="35" show-word-limit style="width:50%"></el-input>
   </el-form-item>
 
   <el-form-item label="视频类型" prop="type">
     <el-select v-model="ruleForm.type" placeholder="视频类型">
       <el-option label="美女" value="beati"></el-option>
+      <el-option label="情感" value="emotion"></el-option>
       <el-option label="搞笑" value="funny"></el-option>
       <el-option label="音乐" value="music"></el-option>
       <el-option label="游戏" value="game"></el-option>
@@ -44,32 +45,35 @@
       <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
     </el-upload>
     <div class="upload-show-area">
-      <div>文件.mp4</div>
-      <el-progress :percentage="50"></el-progress>
+      <div>{{this.ruleForm.videoName}}</div>
+      <el-progress :percentage="0" v-show="uploading"></el-progress>
     </div>
   </el-form-item>
 
   <el-form-item style="margin-top:30px;">
+    <el-button @click="handleReturn">返 回</el-button>
     <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-    <el-button @click="resetForm('ruleForm')">重置</el-button>
   </el-form-item>
 
 </el-form>
-    </div>
+
+</div>
 </template>
 <script>
 import {mapState,mapMutations} from 'vuex'
 export default {
-    name: 'UploadVideo',
+    name: 'AddVideo',
     data() {
       return {
         uploadUrl: '',
         dialogImageUrl: '',
+        uploading:false,
         ruleForm: {
           name: '',
           type: '',
           cover: '',
-          video:''
+          video:'',
+          videoName:''
         },
         rules: {
           name: [
@@ -90,6 +94,12 @@ export default {
     },
     methods: {
       ...mapMutations(['changeTab']),
+      handleReturn() {
+          let tabList;
+          tabList = this.$removeTab('uploadVideo',this.tabList);
+          this.changeTab({activeTabName:'视频列表',tabList});
+          this.$router.push('/video/list');
+      },
       coverOnchange(file) {
         let fileRaw = file.raw;
         var f = new FileReader()
@@ -100,6 +110,8 @@ export default {
         }
       },
       uploadVideoChange(file){
+        this.ruleForm.videoName = file.raw.name;
+        this.uploading = true;
         console.log(file);
       },
       uploadVideoProgress(event, file) {
@@ -131,13 +143,8 @@ export default {
                   });
                 }
               });
-          } else {
-            return false;
           }
         });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
       },
     }
 }
@@ -168,4 +175,7 @@ export default {
       margin-left 5px;
   .upload-show-area
     margin-top:10px;
+  .el-form-item
+    .el-button
+      margin-right 10px;
 </style>

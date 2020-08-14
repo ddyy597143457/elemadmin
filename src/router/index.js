@@ -16,7 +16,7 @@ import Home from '../views/layout/Home'
 const Video = () => import('../views/video/Index')
 const Movie = () => import('../views/video/Movie')
 const Log = () => import('../views/log/Index')
-const UploadVideo = () => import('../views/video/UploadVideo.vue')
+const AddVideo = () => import('../views/video/AddVideo.vue')
 
 var router = new Router({
     routes: [
@@ -38,8 +38,8 @@ var router = new Router({
                     component: Movie
                 },
                 {
-                    path: 'video/upload',
-                    component:UploadVideo
+                    path: 'video/add',
+                    component:AddVideo
                 },
                 {
                     path:'log',
@@ -48,11 +48,13 @@ var router = new Router({
             ]
         },
         {
-        path:'/',
-        name:'notfound',
-        component:NotFound,
-        alias:'*'
+            path:'*',
+            name:'notfound',
+            component:NotFound,
         }
     ]
   })
+
+  
+
 export default router
