@@ -9,7 +9,8 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 import CommonJs from './assets/js/common.js'
 
-require("./mock")
+//开发环境引入mockjs
+process.env.VUE_APP_NODE_ENV == 'dev' && require("./mock")
 
 Vue.config.productionTip = false
 Vue.prototype.axios = axios;

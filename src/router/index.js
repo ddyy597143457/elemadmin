@@ -21,7 +21,7 @@ const UploadVideo = () => import('../views/video/UploadVideo.vue')
 var router = new Router({
     routes: [
         {
-            path:'/admin',
+            path:'/',
             name:'admin',
             component:Admin, 
             children:[

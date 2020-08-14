@@ -4,7 +4,7 @@ let navMenu = []
 
 //tab页
 let activeTabName = 'home';
-let tabList = [{title:'首页',name:'home',router:'/admin'}];
+let tabList = [{title:'首页',name:'home',router:'/'}];
 
 
 export default {

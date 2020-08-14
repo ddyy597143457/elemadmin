@@ -43,7 +43,7 @@
           //如果只有一个，那就是首页，直接返回
           if(tabList.length <= 1) {
             this.editableTabsValue = 'home';
-            this.$router.push('/admin');
+            this.$router.push('/');
             return;
           }
           let cur;
@@ -71,7 +71,7 @@
           //移除后只剩一个tab，必然是首页
           if(tabList.length <= 1) {
             activeTabName = 'home';
-            r = '/admin';
+            r = '/';
           }
           //切换标签
           this.editableTabsValue = activeTabName;

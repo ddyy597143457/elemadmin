@@ -35,7 +35,7 @@ export default {
                   break;
               }
           }
-          let r = '/admin/video/upload';
+          let r = '/video/upload';
           if(found) {
               this.changeTab({activeTabName});
           } else {

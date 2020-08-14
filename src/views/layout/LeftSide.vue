@@ -65,7 +65,7 @@ export default {
               break; 
           }
         }
-        let r = '/admin'+it.router;
+        let r = it.router;
         if(found) {
            //切换标签
            this.changeTab({activeTabName:found});
