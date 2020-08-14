@@ -46,18 +46,15 @@
             this.$router.push('/admin');
             return;
           }
-          let cur = false,curName = '';
-          for (let i = 0; i < tabList.length; i++) {
-              const tab = tabList[i];
-              if(tab.name === targetName) {
-                  cur = i;
-                  curName = tab.name;
-              }
+          let cur;
+          //要删除的tab的索引
+          cur = this.$indexOftablist(targetName,tabList);
+          if(cur === false) {
+              return;
           }
           let r, c = cur,activeTabName;
-          
           //如果关闭当前标签
-          if(curName === this.editableTabsValue) {
+          if(targetName === this.editableTabsValue) {
              if(c < tabList.length-1) {
                   //活动标签右移
                   c++;
@@ -110,11 +107,9 @@
     },
     watch: {
         activeTabName:function() {
-          console.log('time to update state.activeTabName');
           this.editableTabsValue = this.activeTabName;
         },
         tabList:function() {
-          console.log(123);
            this.editableTabs = this.tabList;
         }
     }
