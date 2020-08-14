@@ -32,16 +32,24 @@
   </el-form-item>
 
   <el-form-item label="视频文件">
-  <el-upload
-    class="upload-demo"
-    ref="upload"
-    :action="uploadUrl">
-    <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-
-  </el-upload>
+    <el-upload
+      class="upload-demo"
+      ref="upload"
+      :action="uploadUrl"
+      :auto-upload="true"
+      :show-file-list="false"
+      :on-change = "uploadVideoChange"
+      :on-progress = "uploadVideoProgress"
+      >
+      <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+    </el-upload>
+    <div class="upload-show-area">
+      <div>文件.mp4</div>
+      <el-progress :percentage="50"></el-progress>
+    </div>
   </el-form-item>
 
-  <el-form-item>
+  <el-form-item style="margin-top:30px;">
     <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
     <el-button @click="resetForm('ruleForm')">重置</el-button>
   </el-form-item>
@@ -57,8 +65,6 @@ export default {
       return {
         uploadUrl: '',
         dialogImageUrl: '',
-        fileListCover: [],
-        fileListVideo:[],
         ruleForm: {
           name: '',
           type: '',
@@ -93,6 +99,12 @@ export default {
             console.log(this.dialogImageUrl);
         }
       },
+      uploadVideoChange(file){
+        console.log(file);
+      },
+      uploadVideoProgress(event, file) {
+        console.log(event, file);
+      },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -109,7 +121,7 @@ export default {
                           let tabList;
                           tabList = this.$removeTab('uploadVideo',this.tabList);
                           this.changeTab({activeTabName:'视频列表',tabList});
-                          this.$router.push('/admin/video/list');
+                          this.$router.push('/video/list');
                       });
                     }
                 } else {
@@ -154,4 +166,6 @@ export default {
         height 178px;
   .el-upload__tip
       margin-left 5px;
+  .upload-show-area
+    margin-top:10px;
 </style>
