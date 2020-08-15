@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store'
 
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {
@@ -22,27 +23,31 @@ var router = new Router({
     routes: [
         {
             path:'/',
-            name:'admin',
             component:Admin, 
             children:[
                 {
                     path: '',
+                    name: '首页',
                     component: Home
                 },
                 {
-                    path:'video/list',
+                    path:'/video/list',
+                    name:'视频列表',
                     component:Video
                 },
                 {
-                    path: 'movie/list',
+                    path: '/movie/list',
+                    name:'电影列表',
                     component: Movie
                 },
                 {
-                    path: 'video/add',
+                    path: '/video/add',
+                    name: '添加视频',
                     component:AddVideo
                 },
                 {
-                    path:'log',
+                    path:'/log',
+                    name:'日志管理',
                     component:Log
                 }
             ]
@@ -55,6 +60,14 @@ var router = new Router({
     ]
   })
 
-  
+  router.beforeEach((to,from,next) => {
+      //console.log(to, from);
+      //处理tab
+      if(to.name) {
+          let tab = {title:to.name,name:to.name,router:to.path};
+          store.commit("handleTab",tab);
+      }
+      next();
+  })
 
 export default router

@@ -60,7 +60,7 @@
     </div>
 </template>
 <script>
-import {mapState,mapMutations} from 'vuex'
+import {mapState} from 'vuex'
 export default {
     name: 'EditVideo',
     props: {
@@ -98,7 +98,6 @@ export default {
       ...mapState(['activeTabName','tabList'])
     },
     methods: {
-      ...mapMutations(['changeTab']),
       handleCloseParentDialog(newValue) {
         this.$emit('closeparentdialog',newValue);
       },

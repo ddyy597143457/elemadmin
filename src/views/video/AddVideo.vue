@@ -93,11 +93,11 @@ export default {
       ...mapState(['activeTabName','tabList'])
     },
     methods: {
-      ...mapMutations(['changeTab']),
+      ...mapMutations(['updateTab']),
       handleReturn() {
           let tabList;
-          tabList = this.$removeTab('addVideo',this.tabList);
-          this.changeTab({activeTabName:'视频列表',tabList});
+          tabList = this.$removeTab('添加视频',this.tabList);
+          this.updateTab({tabList});
           this.$router.push('/video/list');
       },
       coverOnchange(file) {
@@ -120,7 +120,7 @@ export default {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-              this.axios.post('/video/upload',this.ruleForm).then((res) => {
+              this.axios.post('/video/add',this.ruleForm).then((res) => {
                 if(res.status === 200) {
                   const data = res.data;
                   if(data.result === "success") {
@@ -130,10 +130,7 @@ export default {
                         type: 'success'
                       }).then(() => {
                       }).catch(() => {
-                          let tabList;
-                          tabList = this.$removeTab('uploadVideo',this.tabList);
-                          this.changeTab({activeTabName:'视频列表',tabList});
-                          this.$router.push('/video/list');
+                          this.handleReturn();
                       });
                     }
                 } else {

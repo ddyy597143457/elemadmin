@@ -49,7 +49,6 @@ export default {
         } else {
             this.setNavMenu([item.name]);
         }
-        //添加tab
         let it = item1?item1:item;
         if(!it.router) {
             this.$message({
@@ -58,25 +57,8 @@ export default {
             });
             return;
         }
-        let tabList = this.tabList,found = false;
-        for(let tab of tabList) {
-          if(it.name === tab.name) {
-              found = tab.name;
-              break; 
-          }
-        }
-        let r = it.router;
-        if(found) {
-           //切换标签
-           this.changeTab({activeTabName:found});
-        } else {
-          //打开新标签
-          let activeTabName = it.name;
-          tabList.push({title:it.name,name:it.name,router:r});
-          this.changeTab({activeTabName,tabList});
-        }
         //跳转
-        this.$router.push(r);
+        this.$router.push(it.router);
       },
 
       initMenu() {
@@ -89,7 +71,7 @@ export default {
           this.menuData = response.data.data;
         }
       },
-      ...mapMutations(['setNavMenu','changeTab'])
+      ...mapMutations(['setNavMenu'])
     },
     computed:{
         ...mapState(['navMenu','tabList'])

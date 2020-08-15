@@ -108,7 +108,7 @@
 
 import EditVideo from "./EditVideo"
 
-import {mapState,mapMutations} from 'vuex'
+import {mapState} from 'vuex'
 export default {
     name: 'Video',
     components: {
@@ -230,26 +230,11 @@ export default {
           });
       },
       addVideo() {
-          let activeTabName = 'addVideo',tabList = this.tabList,found = false;
-          for(let tab of tabList) {
-              if(activeTabName === tab.name) {
-                  found = true;
-                  break;
-              }
-          }
-          let r = '/video/add';
-          if(found) {
-              this.changeTab({activeTabName});
-          } else {
-            tabList.push({title:'添加视频',name:activeTabName,router:r});
-            this.changeTab({activeTabName,tabList});
-          }
-          this.$router.push(r);
+          this.$router.push('/video/add');
       },
       curChange(a) {
         console.log(a);
       },
-      ...mapMutations(['changeTab'])
     },
     computed: {
         ...mapState(['activeTabName','tabList'])

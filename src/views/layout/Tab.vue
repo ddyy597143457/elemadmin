@@ -23,7 +23,7 @@
     </div>
 </template>
 <script>
-  import {mapState, mapMutations} from 'vuex'
+  import {mapState} from 'vuex'
 
   export default {
     data() {
@@ -34,7 +34,6 @@
     },
     methods: {
       removeTab(targetName) {
-          
           let tabList = this.tabList;
           //如果是首页，直接返回
           if(this.editableTabsValue === 'home') {
@@ -52,7 +51,7 @@
           if(cur === false) {
               return;
           }
-          let r, c = cur,activeTabName;
+          let r, c = cur;
           //如果关闭当前标签
           if(targetName === this.editableTabsValue) {
              if(c < tabList.length-1) {
@@ -62,21 +61,13 @@
                   //活动标签左移
                   c--;
               }
-              activeTabName = tabList[c].name;
               r = tabList[c].router;
-          } else {
-              activeTabName = this.activeTabName;
           }
           tabList.splice(cur,1);
           //移除后只剩一个tab，必然是首页
           if(tabList.length <= 1) {
-            activeTabName = 'home';
             r = '/';
           }
-          //切换标签
-          this.editableTabsValue = activeTabName;
-          this.editableTabs = tabList;
-          this.changeTab({activeTabName,tabList});
           if(r) {
              this.$router.push(r);
           }
@@ -90,10 +81,8 @@
               break;
             }
           }
-          this.changeTab({activeTabName:this.editableTabsValue})
-          this.$router.push(r); 
+          this.$router.push(r);
       },
-      ...mapMutations(['changeTab'])
     },
     created() {
       this.editableTabs = this.tabList;
@@ -106,8 +95,11 @@
         ...mapState(['activeTabName','tabList'])
     },
     watch: {
-        activeTabName:function() {
-          this.editableTabsValue = this.activeTabName;
+        activeTabName: {
+          immediate: true,
+          handler(newValue) {
+            this.editableTabsValue = newValue;
+          }
         },
         tabList:function() {
            this.editableTabs = this.tabList;
