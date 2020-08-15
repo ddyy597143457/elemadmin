@@ -66,8 +66,11 @@
         >
         <template slot-scope="scope" style="text-align: center">
             <el-button @click="handleEdit(scope)" type="primary" size="small">编辑</el-button>
-            <el-button v-if="scope.row.status == 2" @click="handlePass(scope)" type="success" size="small">通过</el-button>
-            <el-button v-if="scope.row.status == 1" @click="handlePass(scope)" type="warning" size="small" >取消通过</el-button>
+            <el-button 
+            v-if="scope.row.status == 2" 
+            :loading="scope.row.loading"
+            @click="pass(scope)" type="success" size="small">通过</el-button>
+            <el-button v-if="scope.row.status == 1" @click="canclePass(scope)" type="warning" size="small" >取消通过</el-button>
         </template>
         </el-table-column>
 
@@ -137,6 +140,29 @@ export default {
         this.showVideoEditDialog = true;
         this.videoData = scope.row;
       },
+      pass(scope) {
+          const index = scope.$index;
+          const row = scope.row;
+          row.loading = true;
+          this.$set(this.tableData,index,row);
+          setTimeout(() => {
+            row.status = 1;
+            row.loading = false;
+            this.$message({
+              message: '操作成功',
+              type: 'success',
+              duration:1500,
+              offset: 300
+            })
+            this.$set(this.tableData,index,row);
+          },1000)
+      },
+      canclePass(scope) {
+          const index = scope.$index;
+          const row = scope.row;
+          row.status = 2;
+          this.$set(this.tableData,index,row);
+      },
       closeDialog(newValue) {
           if(newValue) {
             //保存操作
@@ -147,10 +173,12 @@ export default {
       getTableList() {
           let url = '/video/list';
           this.axios.get(url).then((response) => {
-              const data = response.data.data;
-              this.tableData = data.list;
+              const data = response.data.data.list;
+              data.forEach((item) =>{
+                 item.loading = false;
+              });
+              this.tableData = data;
               this.total = 10;
-
           });
       },
       addVideo() {
