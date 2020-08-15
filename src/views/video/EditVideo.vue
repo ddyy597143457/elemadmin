@@ -108,7 +108,7 @@ export default {
         f.readAsDataURL(fileRaw);
         f.onload = (e) => {
             this.dialogImageUrl = e.target.result;
-            console.log(this.dialogImageUrl);
+            this.ruleForm.cover = e.target.result;
         }
       },
       uploadVideoChange(file){

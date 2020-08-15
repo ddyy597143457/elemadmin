@@ -15,6 +15,7 @@
       border
       style="width: 100%;"
       max-height="400"
+      @selection-change="handleSelectionChange"
       >
 
         <el-table-column
@@ -77,9 +78,9 @@
     </el-table>
 
     <div style="margin-top: 20px">
-        <el-button  @click="toggleSelection()" type="danger" size="small">删除</el-button>
-        <el-button  @click="handlePass()" type="success" size="small">通过</el-button>
-        <el-button  @click="handlePass()" type="warning" size="small" >取消通过</el-button>
+        <el-button  @click="deleteSelected()" type="danger" size="small">删除</el-button>
+        <el-button  @click="passSelected()" type="success" size="small">通过</el-button>
+        <el-button  @click="nopassSelected()" type="warning" size="small" >取消通过</el-button>
     </div>
 
     <div style="text-align: center">
@@ -115,6 +116,7 @@ export default {
     },
     data() {
       return {
+        selection:[],
         formInline: {
           user: '',
           region: ''
@@ -135,6 +137,46 @@ export default {
       onSubmit() {
         
       },
+      getSelectedIds() {
+          let ids = this.selection.map((item) => {
+           return item.id;
+         })
+         return ids;
+      },
+      deleteSelected() {
+         let ids = this.getSelectedIds();
+         console.log(ids);
+      },
+      passSelected() {
+         let ids = this.getSelectedIds();
+        this.tableData.forEach((item,index) => {
+            if(ids.includes(item.id)) {
+                item.status = 1;
+                this.$set(this.tableData,index,item)
+            }
+        })
+      },
+      nopassSelected() {
+         let ids = this.getSelectedIds();
+         console.log(ids);
+        this.$confirm('取消通过后前端页面将不展示，确定要取消通过吗', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.tableData.forEach((item,index) => {
+                if(ids.includes(item.id)) {
+                    item.status = 2;
+                    console.log(index);
+                    this.$set(this.tableData,index,item)
+                }
+            })
+             this.$message({message:'取消通过成功',type:'success'});
+          });
+      },
+      handleSelectionChange(selection) {
+         this.selection = selection;
+      },
       handleEdit(scope) {
         this.curIndex = scope.$index;
         this.showVideoEditDialog = true;
@@ -148,16 +190,18 @@ export default {
           setTimeout(() => {
             row.status = 1;
             row.loading = false;
-            this.$message({
-              message: '操作成功',
-              type: 'success',
-              duration:1500,
-              offset: 300
-            })
+            this.$message({message: '通过成功',type: 'success'})
             this.$set(this.tableData,index,row);
           },1000)
       },
       canclePass(scope) {
+          this.$confirm('取消通过后前端页面将不展示，确定要取消通过吗', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+             this.$message({message:'取消通过成功',type:'success'});
+          });
           const index = scope.$index;
           const row = scope.row;
           row.status = 2;
@@ -166,7 +210,11 @@ export default {
       closeDialog(newValue) {
           if(newValue) {
             //保存操作
-            this.$set(this.tableData,this.curIndex,newValue);
+            console.log('newValue',newValue);
+            let row = this.tableData[this.curIndex];
+            row = Object.assign(row,newValue);
+            console.log('row',row);
+            this.$set(this.tableData,this.curIndex,row);
           }
         this.showVideoEditDialog = false;
       },
