@@ -62,26 +62,39 @@
         <el-table-column
         fixed="right"
         label="操作"
-        width="150"
+        width="300"
         >
-        <template slot-scope="scope">
-            <el-button @click="handleEdit(scope.row)" type="text" size="small">编辑</el-button>
-            <el-button @click="handleClick(scope.row)" type="text" size="small">通过</el-button>
+        <template slot-scope="scope" style="text-align: center">
+            <el-button @click="handleEdit(scope)" type="primary" size="small">编辑</el-button>
+            <el-button v-if="scope.row.status == 2" @click="handlePass(scope)" type="success" size="small">通过</el-button>
+            <el-button v-if="scope.row.status == 1" @click="handlePass(scope)" type="warning" size="small" >取消通过</el-button>
         </template>
         </el-table-column>
 
     </el-table>
 
     <div style="margin-top: 20px">
-        <el-button @click="toggleSelection([tableData[1], tableData[2]])">切换第二、第三行的选中状态</el-button>
-        <el-button @click="toggleSelection()">取消选择</el-button>
+        <el-button  @click="toggleSelection()" type="danger" size="small">删除</el-button>
+        <el-button  @click="handlePass()" type="success" size="small">通过</el-button>
+        <el-button  @click="handlePass()" type="warning" size="small" >取消通过</el-button>
     </div>
 
+    <div style="text-align: center">
+      <el-pagination
+      background
+      layout="prev, pager, next"
+      :total="total"
+      prev-text="上一页"
+      next-text="下一页"
+      @current-change="curChange"
+      >
+    </el-pagination>
+    </div>
     <!--对话框-->
     <el-dialog title="视频信息编辑" :visible.sync="showVideoEditDialog">
         <edit-video 
         :vd="videoData" 
-        v-on:closeparentdialog="closeDialog"
+        @closeparentdialog="closeDialog"
         >
         </edit-video>
     </el-dialog>
@@ -103,9 +116,13 @@ export default {
           user: '',
           region: ''
         },
+        page:1,
+        per_page: 5,
+        total:0,
         tableData: [],
         showVideoEditDialog:false,
-        videoData: null
+        curIndex:'',
+        videoData: ''
       }
     },
     mounted() {
@@ -113,22 +130,27 @@ export default {
     },
     methods: {
       onSubmit() {
-          console.log(123);
+        
       },
-      handleEdit(row) {
-          this.showVideoEditDialog = true;
-          this.videoData = row;
+      handleEdit(scope) {
+        this.curIndex = scope.$index;
+        this.showVideoEditDialog = true;
+        this.videoData = scope.row;
       },
       closeDialog(newValue) {
           if(newValue) {
-              console.log(newValue);
+            //保存操作
+            this.$set(this.tableData,this.curIndex,newValue);
           }
         this.showVideoEditDialog = false;
       },
       getTableList() {
-          this.axios.get('/video/list').then((response) => {
+          let url = '/video/list';
+          this.axios.get(url).then((response) => {
               const data = response.data.data;
-              this.tableData = data;
+              this.tableData = data.list;
+              this.total = 10;
+
           });
       },
       addVideo() {
@@ -148,6 +170,9 @@ export default {
           }
           this.$router.push(r);
       },
+      curChange(a) {
+        console.log(a);
+      },
       ...mapMutations(['changeTab'])
     },
     computed: {
@@ -155,3 +180,5 @@ export default {
     },
 }
 </script>
+<style lang="stylus" scoped>
+</style>

@@ -96,7 +96,7 @@ export default {
       ...mapMutations(['changeTab']),
       handleReturn() {
           let tabList;
-          tabList = this.$removeTab('uploadVideo',this.tabList);
+          tabList = this.$removeTab('addVideo',this.tabList);
           this.changeTab({activeTabName:'视频列表',tabList});
           this.$router.push('/video/list');
       },

@@ -45,8 +45,8 @@
       <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
     </el-upload>
     <div class="upload-show-area">
-      <div>{{this.ruleForm.videoName}}</div>
-      <el-progress :percentage="0" v-show="uploading"></el-progress>
+      <div>{{this.ruleForm.video_name}}</div>
+      <el-progress :percentage="0" v-if="uploading"></el-progress>
     </div>
   </el-form-item>
 
@@ -65,7 +65,6 @@ export default {
     name: 'EditVideo',
     props: {
       vd:Object,
-      closeP:Function,
     },
     data() {
       return {
@@ -74,11 +73,12 @@ export default {
         dialogImageUrl: '',
         uploading:false,
         ruleForm: {
+          id:'',
           name: '',
           type: '',
           cover: '',
           video:'',
-          videoName:''
+          video_name:''
         },
         rules: {
           name: [
@@ -112,7 +112,7 @@ export default {
         }
       },
       uploadVideoChange(file){
-        this.ruleForm.videoName = file.raw.name;
+        this.ruleForm.video_name = file.raw.name;
         this.uploading = true;
         console.log(file);
       },
@@ -161,10 +161,14 @@ export default {
         immediate: true,
         handler(newValue) {
           if(newValue) {
+            
             this.dialogImageUrl = newValue.cover;
+            this.ruleForm.id = newValue.id;
             this.ruleForm.name = newValue.name;
             this.ruleForm.type = newValue.type;
-            this.ruleForm.videoName = newValue.video_name;
+            this.ruleForm.cover = newValue.cover;
+            this.ruleForm.date = newValue.date;
+            this.ruleForm.video_name = newValue.video_name;
           }
         }
       }
