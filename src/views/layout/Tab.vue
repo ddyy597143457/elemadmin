@@ -28,40 +28,31 @@
   export default {
     data() {
       return {
-        editableTabsValue: 'home',
+        editableTabsValue: '首页',
         editableTabs: [],
       }
     },
     methods: {
       removeTab(targetName) {
-          let tabList = this.tabList;
           //如果是首页，直接返回
-          if(this.editableTabsValue === 'home') {
-             return;
-          }
-          //如果只有一个，那就是首页，直接返回
-          if(tabList.length <= 1) {
-            this.editableTabsValue = 'home';
-            this.$router.push('/');
-            return;
-          }
-          let cur;
+          if(targetName === '首页') return;
+          let cur,r,next,tabList = this.tabList;
           //要删除的tab的索引
           cur = this.$indexOftablist(targetName,tabList);
           if(cur === false) {
               return;
           }
-          let r, c = cur;
+          next = cur;
           //如果关闭当前标签
           if(targetName === this.editableTabsValue) {
-             if(c < tabList.length-1) {
+             if(next < tabList.length-1) {
                   //活动标签右移
-                  c++;
+                  next++;
               } else {
                   //活动标签左移
-                  c--;
+                  next--;
               }
-              r = tabList[c].router;
+              r = tabList[next].router;
           }
           tabList.splice(cur,1);
           //移除后只剩一个tab，必然是首页
@@ -86,10 +77,9 @@
     },
     created() {
       this.editableTabs = this.tabList;
-      
     },
     mounted() {
-
+       
     },
     computed: {
         ...mapState(['activeTabName','tabList'])
@@ -116,5 +106,4 @@
     .el-tabs,.el-tabs--border-card,.el-tabs__header
       box-shadow: none;
       border-bottom: none;
-
 </style>

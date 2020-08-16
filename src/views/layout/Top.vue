@@ -9,13 +9,13 @@
             <div class="theme">主题</div>
             <div class="lang">语言</div>
             <div class="head">
-            <el-dropdown trigger="click">
+            <el-dropdown trigger="click" @command="handleCommand">
                     <span class="el-dropdown-link">
                     <img class="headimg pointer" src="../../assets/images/1.jpg" width="40" height="40">
                     </span>
                     <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item>个人信息</el-dropdown-item>
-                    <el-dropdown-item>退出登陆</el-dropdown-item>
+                    <el-dropdown-item command="loginOut">退出登陆</el-dropdown-item>
                     </el-dropdown-menu>
             </el-dropdown>
             </div>
@@ -29,6 +29,20 @@ export default {
     name: 'top',
     computed:{
         ...mapState(['navMenu'])
+    },
+    methods: {
+        handleCommand(command) {
+            if(command === 'loginOut') {
+                this.loginOut();
+            }
+        },
+        loginOut() {
+            localStorage.removeItem('userinfo');
+            this.$message({message:'退出登陆成功',type:'success',duration:1000})
+            setTimeout(() => {
+                this.$router.push('/login');
+            },1000)
+        }
     }
 }
 </script>

@@ -18,6 +18,7 @@ const Video = () => import('../views/video/Index')
 const Movie = () => import('../views/video/Movie')
 const Log = () => import('../views/log/Index')
 const AddVideo = () => import('../views/video/AddVideo.vue')
+const Login = () => import('../views/login/Login.vue')
 
 var router = new Router({
     routes: [
@@ -49,8 +50,13 @@ var router = new Router({
                     path:'/log',
                     name:'日志管理',
                     component:Log
-                }
+                },
             ]
+        },
+        {
+            path:'/login',
+            name: '登陆',
+            component:Login
         },
         {
             path:'*',
@@ -61,13 +67,20 @@ var router = new Router({
   })
 
   router.beforeEach((to,from,next) => {
-      //console.log(to, from);
-      //处理tab
-      if(to.name) {
-          let tab = {title:to.name,name:to.name,router:to.path};
-          store.commit("handleTab",tab);
-      }
-      next();
+    //console.log(to, from);
+    //判断登陆
+    if(localStorage.getItem('userinfo')) {
+        //处理tab
+        if(to.name && to.name !== 'notfound') {
+            let tab = {title:to.name,name:to.name,router:to.path};
+            store.commit("handleTab",tab);
+        }
+        next();
+    } else if(to.path === '/login') {
+        next();
+    } else {
+        next({path:'/login'});
+    }
   })
 
 export default router
