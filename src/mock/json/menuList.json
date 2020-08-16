@@ -8,15 +8,23 @@
             "icon":"el-icon-location",
             "children":[
                 {
+                    "id":14,
+                    "index":"1-4",
+                    "name":"角色管理",
+                    "icon":"",
+                    "router":"/role/index"
+                },
+                {
                     "id":11,
                     "index":"1-1",
-                    "name":"菜单管理",
-                    "icon":""
+                    "name":"管理员管理",
+                    "icon":"",
+                    "router":"/admin/index"
                 },
                 {
                     "id":12,
                     "index":"1-2",
-                    "name":"权限管理",
+                    "name":"菜单管理",
                     "icon":""
                 },
                 {
@@ -37,13 +45,15 @@
                     "id":21,
                     "index":"2-1",
                     "name":"资讯管理",
-                    "icon":""
+                    "icon":"",
+                    "router":"/content/news"
                 },
                 {
                     "id":22,
                     "index":"2-2",
                     "name":"文章管理",
-                    "icon":""
+                    "icon":"",
+                    "router":"/content/article"
                 }
             ]
         },
@@ -51,7 +61,7 @@
             "id":3,
             "index":"3",
             "name":"视频管理",
-            "icon":"el-icon-document",
+            "icon":"el-icon-film",
             "children":[
                 {
                     "id":31,
@@ -73,7 +83,7 @@
             "id":4,
             "index":"4",
             "name":"日志管理",
-            "icon":"el-icon-document",
+            "icon":"el-icon-notebook-1",
             "router":"/log"
         }
     ]

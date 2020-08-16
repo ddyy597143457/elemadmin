@@ -37,7 +37,7 @@ export default {
         this.logining = true;
         setTimeout(() => {
             this.$message({message:'登陆成功',type:'success',duration:1000})
-            localStorage.setItem('userinfo',{name:this.form.name});
+            localStorage.setItem('userinfo',JSON.stringify({name:this.form.name}));
             setTimeout(() => {
                 this.$router.push('/');
             },1000);

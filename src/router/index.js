@@ -9,27 +9,70 @@ Router.prototype.push = function push(location) {
 
 Vue.use(Router)
 
-import Admin from '../views/Admin'
+import Index from '../views/Index'
 import NotFound from '../views/NotFound'
 import Home from '../views/layout/Home'
 
 //惰性加载
+const Login = () => import('../views/login/Login')
+//权限管理
+const Role = () => import('../views/auth/Role')
+const RoleAdd = () => import('../views/auth/RoleAdd')
+const Admin = () => import('../views/auth/Admin')
+const AddAdmin = () => import('../views/auth/AddAdmin')
+
+//内容管理
+const News = () => import('../views/content/News')
+const Article = () => import('../views/content/Article')
+
+//视频管理
 const Video = () => import('../views/video/Index')
 const Movie = () => import('../views/video/Movie')
+const AddVideo = () => import('../views/video/AddVideo')
+
+//日志管理
 const Log = () => import('../views/log/Index')
-const AddVideo = () => import('../views/video/AddVideo.vue')
-const Login = () => import('../views/login/Login.vue')
 
 var router = new Router({
     routes: [
         {
             path:'/',
-            component:Admin, 
+            component:Index, 
             children:[
                 {
                     path: '',
                     name: '首页',
                     component: Home
+                },
+                {
+                    path: '/role/index',
+                    name: '角色管理',
+                    component:Role
+                },
+                {
+                    path: '/role/add',
+                    name: '添加角色',
+                    component:RoleAdd
+                },
+                {
+                    path: '/admin/index',
+                    name: '管理员列表',
+                    component:Admin
+                },
+                {
+                    path: '/admin/add',
+                    name: '添加管理员',
+                    component:AddAdmin
+                },
+                {
+                    path: '/content/news',
+                    name: '资讯管理',
+                    component: News
+                },
+                {
+                    path: '/content/article',
+                    name: '文章管理',
+                    component: Article
                 },
                 {
                     path:'/video/list',

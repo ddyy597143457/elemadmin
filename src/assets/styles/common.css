@@ -1,3 +1,7 @@
 .pointer {
     cursor: pointer;
 }
+
+.el-form-item .el-button {
+    margin-right: 10px;
+}

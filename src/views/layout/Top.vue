@@ -9,15 +9,18 @@
             <div class="theme">主题</div>
             <div class="lang">语言</div>
             <div class="head">
-            <el-dropdown trigger="click" @command="handleCommand">
-                    <span class="el-dropdown-link">
-                    <img class="headimg pointer" src="../../assets/images/1.jpg" width="40" height="40">
-                    </span>
-                    <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>个人信息</el-dropdown-item>
-                    <el-dropdown-item command="loginOut">退出登陆</el-dropdown-item>
-                    </el-dropdown-menu>
-            </el-dropdown>
+                <el-dropdown trigger="click" @command="handleCommand">
+                        <span class="el-dropdown-link">
+                        <img class="headimg pointer" src="../../assets/images/1.jpg" width="40" height="40">
+                        </span>
+                        <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item>个人信息</el-dropdown-item>
+                        <el-dropdown-item command="loginOut">退出登陆</el-dropdown-item>
+                        </el-dropdown-menu>
+                </el-dropdown>
+            </div>
+            <div class="user-name">
+                {{userName}}
             </div>
         </div>
     </div>
@@ -27,6 +30,11 @@ import {mapState} from 'vuex'
 
 export default {
     name: 'top',
+    data() {
+        return {
+            userName:'',
+        }
+    },
     computed:{
         ...mapState(['navMenu'])
     },
@@ -42,6 +50,13 @@ export default {
             setTimeout(() => {
                 this.$router.push('/login');
             },1000)
+        }
+    },
+    mounted() {
+        let userinfo = localStorage.getItem('userinfo');
+        if(userinfo) {
+            userinfo = JSON.parse(userinfo);
+            this.userName = userinfo.name;
         }
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="admin">
+    <div>
         <!-- 左侧菜单导航 -->
         <left-side></left-side>
         <!-- 顶部 -->
@@ -16,7 +16,7 @@ import TopComponent from "./layout/Top"
 import ContentComponent from "./layout/Content"
 
 export default {
-  name: 'Admin',
+  name: 'Index',
   components: {
     LeftSide,
     TopComponent,
