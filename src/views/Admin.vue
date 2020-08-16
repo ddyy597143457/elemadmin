@@ -2,36 +2,25 @@
     <div class="admin">
         <!-- 左侧菜单导航 -->
         <left-side></left-side>
-        <!-- 内容区 -->
-        <div class="content">
-            <!-- 顶部 -->
-            <top-component></top-component>
-            <!-- tab页 -->
-            <tab-component></tab-component>
-        </div>
+        <!-- 顶部 -->
+        <top-component></top-component>
+        <!-- 内容 -->
+        <content-component></content-component>
+
     </div>
 </template>
 <script>
-import TopComponent from "./layout/Top"
-import TabComponent from "./layout/Tab"
+
 import LeftSide from "./layout/LeftSide"
+import TopComponent from "./layout/Top"
+import ContentComponent from "./layout/Content"
 
 export default {
   name: 'Admin',
   components: {
-    TopComponent,
-    TabComponent,
     LeftSide,
-
+    TopComponent,
+    ContentComponent,
   }
 }
 </script>
-<style lang="stylus" scoped>
-    @import "~@/assets/styles/var.styl"
-    .content 
-          float left
-          width: $mainWidthPersent;
-          min-height: $minHeight;
-          box-sizing: border-box;
-
-</style>

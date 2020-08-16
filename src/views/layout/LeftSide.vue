@@ -38,7 +38,7 @@ export default {
     name: 'LeftSide',
     data() {
       return {
-          menuData:[]
+          menuData:[],
       };
     },
     methods: {
@@ -58,7 +58,7 @@ export default {
             return;
         }
         //跳转
-        this.$router.push(it.router);
+       this.$router.push(it.router)
       },
 
       initMenu() {
@@ -71,7 +71,7 @@ export default {
           this.menuData = response.data.data;
         }
       },
-      ...mapMutations(['setNavMenu'])
+      ...mapMutations(['setNavMenu','setRouterAlive'])
     },
     computed:{
         ...mapState(['navMenu','tabList'])
@@ -79,7 +79,9 @@ export default {
     created() {
       this.initMenu();
     },
-  
+    watch:{
+
+    }
 }
 </script>
 <style lang="stylus" scoped>

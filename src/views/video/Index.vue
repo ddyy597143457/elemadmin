@@ -226,7 +226,7 @@ export default {
                  item.loading = false;
               });
               this.tableData = data;
-              this.total = 10;
+              this.total = 20;
           });
       },
       addVideo() {
@@ -238,7 +238,7 @@ export default {
     },
     computed: {
         ...mapState(['activeTabName','tabList'])
-    },
+    }
 }
 </script>
 <style lang="stylus" scoped>

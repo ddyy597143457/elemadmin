@@ -1,7 +1,6 @@
 <template>
-    <div>
+    <div class="content">
         <div class="tab-wrap">
-
           <el-tabs v-model="editableTabsValue" 
             type="border-card" 
             closable 
@@ -18,7 +17,10 @@
           </el-tabs>
         </div>
         <div class="content-wrap">
-            <router-view></router-view>
+            
+            <keep-alive>
+              <router-view />
+            </keep-alive>
         </div>
     </div>
 </template>
@@ -26,6 +28,7 @@
   import {mapState} from 'vuex'
 
   export default {
+    name: 'Content',
     data() {
       return {
         editableTabsValue: '首页',
@@ -98,12 +101,18 @@
   }
 </script>
 <style lang="stylus" scoped>
-    .tab-wrap
-      width 100%;
-    .content-wrap
-      padding-left 20px;
+    @import "~@/assets/styles/var.styl"
+    .content 
+      float left
+      width: $mainWidthPersent;
+      min-height: $minHeight;
+      box-sizing: border-box;
+      .tab-wrap
+        width 100%;
+      .content-wrap
+        padding-left 20px;
 
-    .el-tabs,.el-tabs--border-card,.el-tabs__header
-      box-shadow: none;
-      border-bottom: none;
+      .el-tabs,.el-tabs--border-card,.el-tabs__header
+        box-shadow: none;
+        border-bottom: none;
 </style>

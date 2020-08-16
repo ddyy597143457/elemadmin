@@ -13,16 +13,17 @@ function handleTab(state,obj) {
         }
     })
     if(found) {
+        //tab存在，激活
         state.activeTabName = obj.name;
-        console.log('routerTab found',state.tabList);
     } else {
+        //tab不存在，插入tabList并激活
         state.activeTabName = obj.name;
         tabList.push(obj);
         state.tabList = tabList;
-        console.log('routerTab not found',state.tabList);
     }
 }
 
+//更新tab
 function updateTab(state,obj) {
     let {activeTabName,tabList} = obj;
     if(activeTabName) {
@@ -32,6 +33,7 @@ function updateTab(state,obj) {
         state.tabList = obj.tabList; 
     }
 }
+
 
 export default {
     setNavMenu,
