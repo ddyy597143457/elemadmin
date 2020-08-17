@@ -22,16 +22,11 @@
                     "router":"/admin/index"
                 },
                 {
-                    "id":12,
-                    "index":"1-2",
-                    "name":"菜单管理",
-                    "icon":""
-                },
-                {
                     "id":13,
                     "index":"1-3",
                     "name":"节点管理",
-                    "icon":""
+                    "icon":"",
+                    "router":"/node/index"
                 }
             ]
         },

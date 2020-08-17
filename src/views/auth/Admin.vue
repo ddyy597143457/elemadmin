@@ -16,7 +16,7 @@
             <el-table-column
                 prop="id"
                 label="ID"
-                width="200">
+                width="100">
             </el-table-column>
 
             <el-table-column
@@ -34,7 +34,7 @@
             <el-table-column
                 prop="status"
                 label="状态"
-                width="200">
+                width="100">
                  <template slot-scope="scope">
                     <span v-if="scope.row.status==1" style="color:#67C23A;">已启用</span>
                     <span v-if="scope.row.status==2" style="color:#F56C6C;">已禁用</span>
@@ -44,7 +44,7 @@
             <el-table-column
             prop="date"
             label="添加日期"
-            width="200">
+            width="180">
             </el-table-column>
 
             <el-table-column

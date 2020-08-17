@@ -20,6 +20,7 @@ const Role = () => import('../views/auth/Role')
 const RoleAdd = () => import('../views/auth/RoleAdd')
 const Admin = () => import('../views/auth/Admin')
 const AddAdmin = () => import('../views/auth/AddAdmin')
+const Node = () => import('../views/auth/Node')
 
 //内容管理
 const News = () => import('../views/content/News')
@@ -47,6 +48,7 @@ var router = new Router({
                 {
                     path: '/role/index',
                     name: '角色管理',
+                    meta:{ keepalive: true},
                     component:Role
                 },
                 {
@@ -57,6 +59,7 @@ var router = new Router({
                 {
                     path: '/admin/index',
                     name: '管理员列表',
+                    meta:{ keepalive: true},
                     component:Admin
                 },
                 {
@@ -65,24 +68,35 @@ var router = new Router({
                     component:AddAdmin
                 },
                 {
+                    path: '/node/index',
+                    name: '节点管理',
+                    meta:{ keepalive: true},
+                    component:Node
+                },
+                {
                     path: '/content/news',
                     name: '资讯管理',
+                    meta:{ keepalive: true},
                     component: News
                 },
                 {
                     path: '/content/article',
                     name: '文章管理',
+                    meta:{ keepalive: true},
                     component: Article
                 },
                 {
                     path:'/video/list',
                     name:'视频列表',
+                    meta:{ keepalive: true},
                     component:Video
                 },
                 {
                     path: '/movie/list',
                     name:'电影列表',
-                    component: Movie
+                   
+                    component: Movie,
+                    meta:{ keepalive: true},
                 },
                 {
                     path: '/video/add',
@@ -92,6 +106,7 @@ var router = new Router({
                 {
                     path:'/log',
                     name:'日志管理',
+                    meta:{ keepalive: true},
                     component:Log
                 },
             ]

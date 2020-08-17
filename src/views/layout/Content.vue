@@ -17,10 +17,10 @@
           </el-tabs>
         </div>
         <div class="content-wrap">
-            
             <keep-alive>
-              <router-view />
+                <router-view  v-if="$route.meta.keepalive" />
             </keep-alive>
+            <router-view  v-if="!$route.meta.keepalive" />
         </div>
     </div>
 </template>

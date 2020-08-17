@@ -2,8 +2,12 @@
     <div class="">
 
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
+            <el-form-item label="角色名称">
+                <el-input type="text" v-model="formInline.name"></el-input>
+            </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="addRole">添加角色</el-button>
+                <el-button type="primary" @click="addRole">查询</el-button>
+                <el-button plain @click="addRole">添加角色</el-button>
             </el-form-item>
         </el-form>
 
@@ -34,14 +38,16 @@
             <el-table-column
             fixed="right"
             label="操作"
-            width="200"
+            width="300"
             >
             <template slot-scope="scope" style="text-align: center">
                 <template v-if="scope.row.type=='1'">
                 </template>
                 <template v-else>
                     <el-button size="small" type="primary">编辑</el-button>
-                    <el-button size="small" type="danger" style="float:right">删除</el-button>
+                    <el-button size="small" type="danger" >删除</el-button>
+
+                     <el-button size="small" plain="" @click="authRole(scope.row)">角色授权</el-button>
                 </template>
                 
             </template>
@@ -59,13 +65,35 @@
         >
         </el-pagination>
         </div>
+
+        <!--角色授权-->
+        <el-dialog title="角色授权" 
+        :visible.sync="authroleDialog"
+        width="35%"
+        >
+            <auth-role 
+            :roleName = "roleName"
+            @closeparentdialog="closeDialog"
+            >
+            </auth-role>
+        </el-dialog>
+
     </div>
 </template>
 <script>
+import AuthRole from './AuthRole'
 export default {
     name: 'Administrators',
+    components: {
+        AuthRole
+    },
     data() {
         return {
+            authroleDialog:false,
+            roleName:'',
+            formInline: {
+                name: '',
+            },
             tableData:[
                 {
                     id:1, 
@@ -97,7 +125,23 @@ export default {
     methods: {
         addRole() {
             this.$router.push('/role/add');
+        },
+        curChange(a) {
+            console.log(a);
+        },
+        authRole(row) {
+            this.authroleDialog = true;
+            this.roleName = row.name;
+        },
+        closeDialog() {
+            this.authroleDialog = false;
         }
     }
 }
 </script>
+<style>
+    .el-dialog .el-dialog__body {
+        padding: 10px 20px;
+    }
+
+</style>

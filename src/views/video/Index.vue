@@ -200,12 +200,12 @@ export default {
             cancelButtonText: '取消',
             type: 'warning'
           }).then(() => {
+            const index = scope.$index;
+            const row = scope.row;
+            row.status = 2;
+            this.$set(this.tableData,index,row);
              this.$message({message:'取消通过成功',type:'success'});
           });
-          const index = scope.$index;
-          const row = scope.row;
-          row.status = 2;
-          this.$set(this.tableData,index,row);
       },
       closeDialog(newValue) {
           if(newValue) {
