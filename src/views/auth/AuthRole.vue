@@ -44,7 +44,7 @@ export default {
             alert('选择的节点：'+keys.join(','));
         },
         getMenuData() {
-            this.axios.get('/menu/list').then((res)=>{
+            this.axios.get('/node/list').then((res)=>{
                 let data = res.data.data;
                 this.treeData = this.initTree(data);
             });

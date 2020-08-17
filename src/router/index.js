@@ -21,6 +21,7 @@ const RoleAdd = () => import('../views/auth/RoleAdd')
 const Admin = () => import('../views/auth/Admin')
 const AddAdmin = () => import('../views/auth/AddAdmin')
 const Node = () => import('../views/auth/Node')
+const AddNode = () => import('../views/auth/AddNode')
 
 //内容管理
 const News = () => import('../views/content/News')
@@ -72,6 +73,11 @@ var router = new Router({
                     name: '节点管理',
                     meta:{ keepalive: true},
                     component:Node
+                },
+                {
+                    path: '/node/add',
+                    name: '添加节点',
+                    component:AddNode
                 },
                 {
                     path: '/content/news',

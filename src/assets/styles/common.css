@@ -5,3 +5,14 @@
 .el-form-item .el-button {
     margin-right: 10px;
 }
+
+.el-success {
+    color:#67C23A
+}
+.el-failed {
+    color:#F56C6C
+}
+
+.pointer {
+    cursor: pointer;
+}

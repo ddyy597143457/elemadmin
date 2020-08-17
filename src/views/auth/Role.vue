@@ -6,7 +6,7 @@
                 <el-input type="text" v-model="formInline.name"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="addRole">查询</el-button>
+                <el-button type="primary">查询</el-button>
                 <el-button plain @click="addRole">添加角色</el-button>
             </el-form-item>
         </el-form>
@@ -83,7 +83,7 @@
 <script>
 import AuthRole from './AuthRole'
 export default {
-    name: 'Administrators',
+    name: 'Role',
     components: {
         AuthRole
     },

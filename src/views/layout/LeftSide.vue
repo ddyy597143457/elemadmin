@@ -62,7 +62,7 @@ export default {
       },
 
       initMenu() {
-        this.axios.get('/menu/list').then((response) => {
+        this.axios.get('/node/list').then((response) => {
           this.renderMenu(response)
         });
       },
